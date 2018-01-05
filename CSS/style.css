@@ -1,8 +1,43 @@
 body {
-    background-color: red;
+    width:100%; 
+    height:100%;
+    text-align: center;
+    background-color: #FF006A;
 }
 
-.question {
-    text-align: center;
+#question {
     color: white;
+    font-size: 48px;
+    font-family: sans-serif;
+    text-align: center;
+    margin: 125px 25px 25px 25px;
+}
+
+.answer {
+    display: inline-block;
+    border: none;
+    font-family: sans-serif;
+    width: 200px; 
+    height: 100px;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    background: #4F4F4F;
+    margin: 125px 25px 25px 25px;
+}
+
+.answer:hover{
+    background: rgb(167, 31, 87);
+}
+
+#score {
+    color: white;
+    position: absolute;
+    font-size: 48px;
+    font-family: sans-serif;
+    text-align: center;
+    position: fixed; 
+    width: 100%; 
+    bottom: 200px;
+    margin: 125px 0 0 0;    
 }
