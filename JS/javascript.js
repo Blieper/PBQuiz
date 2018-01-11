@@ -2,6 +2,30 @@ let currentQuestion = {rightAnswer: -1}
 let answerButtons = [];
 var score = 0;
 
+window.addEventListener('load',init);
+
+function init () {
+    setQuestion();
+}
+
+function timeOut(q, c = false) {
+    if (c) {
+        document.getElementById("question").innerHTML = 'Correct!';
+    }else{
+        document.getElementById("question").innerHTML = 'Wrong! The right answer was ' + q.answers[q.rightAnswer] + '.';
+    }
+        
+    // Remove old buttons
+    for (i = 0; i < answerButtons.length; i++) {
+        let parent = document.getElementsByTagName("BODY")[0]; 
+        parent.removeChild(answerButtons[i]);
+    }
+        
+    answerButtons = [];
+
+    setTimeout(setQuestion, 1500);         
+}
+
 function setQuestion () {
     if (questions.length) {
         // Getting a random index
@@ -12,14 +36,6 @@ function setQuestion () {
     
         // Set the question
         document.getElementById("question").innerHTML = question.question;
-    
-        // Remove old buttons
-        for (i = 0; i < answerButtons.length; i++) {
-            let parent = document.getElementsByTagName("BODY")[0]; 
-            parent.removeChild(answerButtons[i]);
-        }
-
-        answerButtons = [];
 
         // Create new buttons
         for (i = 0; i < question.answers.length; i++) {
@@ -31,18 +47,18 @@ function setQuestion () {
             answerButtons[i] = btn;
 
             if (i == question.rightAnswer) {
-                let old = setQuestion;   
-
                 btn.onclick = function () {
                     if (questions.length) {
                         score++;
-                        document.getElementById("score").innerHTML = 'score: ' + score;
+                        document.getElementById("score").innerHTML = 'Score: ' + score;
                     }
-
-                    setQuestion();
+                    
+                    timeOut(question, true);
                 };  
             }else{
-                btn.onclick = setQuestion;            
+                btn.onclick = function() {
+                    timeOut(question);
+                }        
             }
 
             btn.className = 'answer';
@@ -58,5 +74,8 @@ function setQuestion () {
         }
 
         document.getElementById("question").innerHTML = 'End of the quiz!';
+
+        document.getElementById("score").innerHTML = 'You scored ' + score + ' points! Reload the page to try again.';
+        
     }
 }
